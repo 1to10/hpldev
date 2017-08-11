@@ -1,0 +1,21 @@
+{
+  "name": "hpl",
+  "description": "hpl",
+  "main": "hpl",
+  "authors": [
+    "hpl"
+  ],
+  "license": "hpl",
+  "keywords": [
+    "hpl"
+  ],
+  "homepage": "hpl",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -111,6 +111,8 @@ Route::get('/payments/excel',
  * Admin Routes Goes Below
  */
 Auth::routes();
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
+{
 Route::get('/home', 'HomeController@index');
 Route::get('/users', 'AdminController@user');
 Route::get('/addcategory', 'AdminController@createCategory');
@@ -133,5 +135,25 @@ Route::get('/addproduct', 'AdminController@createProduct');
 Route::post('/storeProduct', 'AdminController@storeProduct');
 Route::post('ajax-subcat','AdminController@getSubCat');
 Route::post('ajax-product-range','AdminController@getProductRange');
+Route::get('/productlist', 'AdminController@allProduct');
+Route::get('product/edit/{id}', ['as' => 'product.edit', 'uses' => 'AdminController@ProductEdit']);
+Route::post('product/update/{id}', ['as' => 'product.update', 'uses' => 'AdminController@ProductUpdate']);
+Route::get('product/delete/{id}', ['as' => 'product.delete', 'uses' => 'AdminController@productdelete']);
+// show new post form
+  Route::get('new-blog','BlogController@create');
+    // save new post
+    Route::post('storeBlog','BlogController@storeBlog');
+    // display user's all posts
+    Route::get('bloglist','BlogController@allblog');
+    Route::get('blog/edit/{id}', ['as' => 'blog.edit', 'uses' => 'BlogController@blogEdit']);
+    Route::post('blog/update/{id}', ['as' => 'blog.update', 'uses' => 'BlogController@updateBlog']);
+    Route::get('blog/delete/{id}', ['as' => 'blog.delete', 'uses' => 'BlogController@deleteBlog']);
+    // display user's drafts
+    Route::get('my-drafts','UserController@user_posts_draft');
+    // add comment
+    Route::post('comment/add','CommentController@store');
+    // delete comment
+    Route::post('comment/delete/{id}','CommentController@distroy');
+});
 
 

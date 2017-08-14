@@ -33,7 +33,7 @@ class AdminController extends Controller
     public function index()
     {
         $data=Auth::user();
-        dd($data);
+
         //return view('home');
         return view('admin.home',compact('data'));
     }
@@ -194,7 +194,10 @@ class AdminController extends Controller
     public function createProduct()
     {
         $category=Category::where('status', '=','1')->where('type', '=','1')->get();
-        return view('admin.createproduct',compact('category'));
+        $subcategory=Category::where('status','=','1')->where('type','=','2')->where('id','=', isset($categoryByid->sub_cat_id))->get();
+        $range=Category::where('status','=','1')->where('type','=','3')->where('id','=', isset($categoryByid->range_id))->get();
+
+        return view('admin.createproduct',compact('category','subcategory','range'));
     }
 
     public function getSubCat(Request $request)
@@ -232,6 +235,45 @@ class AdminController extends Controller
 
         Session::flash('flash_message', 'Category successfully added!');
 
+        return redirect()->back();
+    }
+    public function allProduct()
+    {
+        $products = Product::get();
+
+        return view('admin.product',compact('products'));
+    }
+    public function ProductEdit($id)
+    {
+
+        $categoryByid = Product::findOrFail($id);
+        $category=Category::where('status','=','1')->where('parent_id','=','0')->get();
+        $subcategory=Category::where('status','=','1')->where('type','=','2')->where('id','=', $categoryByid->sub_cat_id)->get();
+        $range=Category::where('status','=','1')->where('type','=','3')->where('id','=', $categoryByid->range_id)->get();
+        return view('admin.createproduct',compact('categoryByid','category','subcategory','range'));
+    }
+    public function ProductUpdate($id, Request $request)
+    {
+        $product = Product::findOrFail($id);
+
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $input = $request->all();
+
+        $product->fill($input)->save();
+
+        Session::flash('flash_message', 'Product  successfully Updated!');
+
+        return redirect()->back();
+    }
+
+    public function productdelete($id, Request $request)
+    {
+        $product = Product::find($id);
+        $product->destroy($id);
+        Session::flash('flash_message', 'Product  Deleted Successfully!');
         return redirect()->back();
     }
 

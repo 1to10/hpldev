@@ -1,9 +1,16 @@
 
 @extends('admin.layouts.dashboard')
-
-@section('page_heading','Product Range')
+@section('section')
+    @if($errors->any())
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+@section('page_heading','Product Listing')
 @section('create_url')
-   <a href="{{url('admin/addproductrange')}}"> <i class="fa fa-plus" aria-hidden="true"></i>Add</a>
+   <a href="{{url('admin/addproduct')}}"> <i class="fa fa-plus" aria-hidden="true"></i>Add</a>
    {!! link_to_route('admin.payments.excel',
     'Export to Excel', null,
     ['class' => 'btn btn-info'])
@@ -15,7 +22,7 @@
         <div class="row">
             <div class="col-sm-12">
                 @component('admin.widgets.panel')
-                    @slot('panelTitle', 'Product Range List')
+                    @slot('panelTitle', 'Product List')
                     @slot('panelBody')
 
                         <table class="table table-bordered" id="example">
@@ -28,13 +35,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($productrange as $cat)
+                            @foreach($products as $product)
 
                                 <tr class="success">
-                                    <td>{{ $cat->name }}</td>
-                                    <td>{{$cat->description}}</td>
-                                     <td> <a href="{{ route('productrange.edit', $cat->id) }}" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                         <a href="{{ route('productrange.delete', $cat->id) }}" class="btn btn-primary"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{$product->description}}</td>
+                                     <td> <a href="{{ route('product.edit', $product->id) }}" class="btn btn-info"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                         <a href="{{ route('product.delete', $product->id) }}" class="btn btn-primary"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                                 </tr>
                             @endforeach
 

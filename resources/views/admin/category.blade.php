@@ -3,7 +3,7 @@
 
 @section('page_heading','Category')
 @section('create_url')
-   <a href="{{url('addcategory')}}"> <i class="fa fa-plus" aria-hidden="true"></i>Add</a>
+   <a href="{{url('admin/addcategory')}}"> <i class="fa fa-plus" aria-hidden="true"></i>Add</a>
    {!! link_to_route('admin.payments.excel',
     'Export to Excel', null,
     ['class' => 'btn btn-info'])

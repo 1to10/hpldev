@@ -266,19 +266,34 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*category*') ? 'class="active"' : '') }} >
-                                    <a href="{{url('categorylist')}}">Parent Category</a>
+                                    <a href="{{url('admin/categorylist')}}">Parent Category</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('subcategorylist')}}">Sub Category</a>
+                                    <a href="{{url('admin/subcategorylist')}}">Sub Category</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('productrangelist')}}">Product Range</a>
+                                    <a href="{{url('admin/productrangelist')}}">Product Range</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('productrangelist')}}">Product</a>
+                                    <a href="{{url('admin/productlist')}}">Product</a>
                                 </li>
 
                             </ul>
+
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sitemap fa-fw"></i>Blog Listing<span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*blog*') ? 'class="active"' : '') }} >
+                                    <a href="{{url('admin/bloglist')}}">Blog</a>
+                                </li>
+
+
+                            </ul>
+
                             <!-- /.nav-second-level -->
                         </li>
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
@@ -379,7 +394,7 @@
                             </a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*users') ? 'class="active"' : '') }} >
-                                    <a href="{{url('users')}}">Users</a>
+                                    <a href="{{url('admin/users')}}">Users</a>
                                 </li>
                                 <li>
                                     <a href="#">Permission</a>
@@ -417,4 +432,5 @@
         </div>
     </div>
 @endsection
+
 
